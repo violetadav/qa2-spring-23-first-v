@@ -129,7 +129,6 @@ public class TicketsStepDefs {
         finalPage.successfulMessageAppears();
     }
 
-
     @When("we are requesting all reservations via API")
     public void request_all_reservations() throws JsonProcessingException {
         LOGGER.info("Requesting reservations");

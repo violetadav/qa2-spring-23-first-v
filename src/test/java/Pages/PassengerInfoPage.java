@@ -1,7 +1,7 @@
 package Pages;
 
-import com.beust.ah.A;
-import model.ReservationInfo;
+import model.tickets.Flight;
+import model.tickets.Passenger;
 import org.openqa.selenium.By;
 
 public class PassengerInfoPage {
@@ -14,6 +14,7 @@ public class PassengerInfoPage {
     private final By SELECTED_FLIGHT = By.id("flight");
     private final By GET_PRICE_BTN = By.xpath(".//span[@onclick = 'setLang();']");
     private final By BOOK2_BTN = By.id("book2");
+    private final By FLIGHT_INFO = By.xpath(".//span[@class = 'bTxt']");
 
     private BaseFunc baseFunc;
 
@@ -21,14 +22,30 @@ public class PassengerInfoPage {
         this.baseFunc = baseFunc;
     }
 
-    public void fillInPassengerInfo(ReservationInfo reservationInfo) {
-        baseFunc.type(NAME_INPUT, reservationInfo.getFirstName());
-        baseFunc.type(SURNAME_INPUT, reservationInfo.getLastName());
-        baseFunc.type(DISCOUNT_INPUT, reservationInfo.getDiscount());
-        baseFunc.type(ADULTS_INPUT, reservationInfo.getPassengerCount());
-        baseFunc.type(CHILDREN_INPUT, reservationInfo.getChildCount());
-        baseFunc.type(LUGGAGE_INPUT, reservationInfo.getBagsCount());
-        baseFunc.selectByText(SELECTED_FLIGHT, reservationInfo.getFlightDate());
+    public void fillInPassengerInfo(Flight flight, Passenger passenger) {
+        baseFunc.type(NAME_INPUT, passenger.getFirstName());
+        baseFunc.type(SURNAME_INPUT, passenger.getLastName());
+        baseFunc.type(DISCOUNT_INPUT, flight.getDiscount());
+        baseFunc.type(ADULTS_INPUT, flight.getPassengersCount());
+        baseFunc.type(CHILDREN_INPUT, flight.getChildCount());
+        baseFunc.type(LUGGAGE_INPUT, flight.getLuggageCount());
+        baseFunc.selectByText(SELECTED_FLIGHT, flight.getFlightDate());
+    }
+
+    public String departureCheck() {
+        return baseFunc.waitForNumbersOfElementsToBe(FLIGHT_INFO, 2).get(0).getText();
+    }
+
+    public String arrivalCheck() {
+        return baseFunc.waitForNumbersOfElementsToBe(FLIGHT_INFO, 2).get(1).getText();
+    }
+
+    public String arrivalAirportCheck() {
+        return baseFunc.waitForNumbersOfElementsToBe(FLIGHT_INFO, 5).get(4).getText();
+    }
+
+    public String departureAirportCheck() {
+        return baseFunc.waitForNumbersOfElementsToBe(FLIGHT_INFO, 5).get(3).getText();
     }
 
     public void clickGetPriceBtn(){

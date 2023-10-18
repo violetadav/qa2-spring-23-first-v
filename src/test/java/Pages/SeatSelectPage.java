@@ -13,6 +13,7 @@ public class SeatSelectPage {
 
     private final By FLIGHT_PRICE_INFO = By.xpath(".//div[@class = 'responsePrice']");
     private final By FLIGHT_INFO = By.xpath(".//span[@class = 'bTxt']");
+    private final By SELECTED_SEAT_NR = By.xpath(".//div[@class = 'line']");
 
     private BaseFunc baseFunc;
 
@@ -66,7 +67,7 @@ public class SeatSelectPage {
     }
 
 
-    public void priceCheck(String PRICE){
+    public void priceCheck(String PRICE) {
         baseFunc.findElement(FLIGHT_PRICE_INFO);
         WebElement priceInfo = baseFunc.findElement(FLIGHT_PRICE_INFO);
         String price = priceInfo.getText();
@@ -95,4 +96,12 @@ public class SeatSelectPage {
         Assertions.assertEquals(firstName, name.substring(0, name.length() - 1), "Wrong Name!");
     }
 
+    public String seatNrChecking() {
+        return baseFunc.findElement(SELECTED_SEAT_NR).getText().substring(14);
+
+    }
+
+    //public String seatSelectCheck() {
+    //    return baseFunc.findElement(SEAT_NR_SELECT).getText();
+    //}
 }

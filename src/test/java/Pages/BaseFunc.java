@@ -1,5 +1,7 @@
 package Pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,15 +16,20 @@ import java.util.List;
 public class BaseFunc {
     private WebDriver browser;
     private WebDriverWait wait;
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     public BaseFunc() {
+        LOGGER.info("Open browser window");
         browser = new ChromeDriver();
+
+        LOGGER.info("Expanding browser window");
         browser.manage().window().maximize();
 
         wait = new WebDriverWait(browser, Duration.ofSeconds(5));
     }
 
     public void openUrl(String url) {
+        LOGGER.info("Open webpage: " + url);
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
             url = "http://" + url;
         }
@@ -73,8 +80,8 @@ public class BaseFunc {
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, minCount));
     }
 
-    public void waitForElementsAreVisible (By locator) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    public List<WebElement> waitForNumbersOfElementsToBe(By locator, int count) {
+        return wait.until(ExpectedConditions.numberOfElementsToBe(locator, count));
     }
 
 }

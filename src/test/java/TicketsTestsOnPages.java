@@ -1,19 +1,15 @@
-import Pages.BaseFunc;
-import Pages.HomePage;
-import Pages.PassengerInfoPage;
-import Pages.SeatSelectPage;
-import model.ReservationInfo;
+import Pages.*;
+import model.tickets.Flight;
+import model.tickets.Passenger;
 import org.junit.jupiter.api.Test;
 
 public class TicketsTestsOnPages {
     private final String URL = "http://www.qaguru.lv:8089/tickets";
-    private final String DEPARTURE_AIRPORT = "RIX";
-    private final String ARRIVAL_AIRPORT = "MEL";
-    private ReservationInfo info = new ReservationInfo("Dmitrijs", "Lidotajs", "Free", 2, 3, 5, "17-05-2018");
-
-    private int seatNr = 28;
+    private Passenger passenger = new Passenger("Dmitry", "Tester");
+    private Flight flight = new Flight("RIX", "MEL", "CCC", 4, 1, 1, "11-05-2018", 18);
 
     private final String PRICE = "4130 EUR";
+    private final String SUCCESSFUL_REG_MSG = "Thank You for flying with us!";
 
     @Test
     public void successTicketsBookCheck() {
@@ -21,12 +17,12 @@ public class TicketsTestsOnPages {
         baseFunc.openUrl(URL);
 
         HomePage homePage = new HomePage(baseFunc);
-        homePage.selectDepartureAirport(DEPARTURE_AIRPORT);
-        homePage.selectArrivalAirport(ARRIVAL_AIRPORT);
+        homePage.selectDepartureAirport(flight.getDeparture());
+        homePage.selectArrivalAirport(flight.getArrival());
         homePage.clickGoGoGoBtn();
 
         PassengerInfoPage infoPage = new PassengerInfoPage(baseFunc);
-        infoPage.fillInPassengerInfo(info);
+        infoPage.fillInPassengerInfo(flight, passenger);
         infoPage.clickGetPriceBtn();
         infoPage.clickBookBtn();
 
@@ -35,11 +31,14 @@ public class TicketsTestsOnPages {
         // seatSelectPage.clickBookBtn();
 
         SeatSelectPage seatSelectPage = new SeatSelectPage(baseFunc);
-        seatSelectPage.selectSeatNr(seatNr);
+        seatSelectPage.selectSeatNr(flight.getSeatNr());
         seatSelectPage.priceCheck(PRICE);
-        seatSelectPage.departureCheck(DEPARTURE_AIRPORT);
-        seatSelectPage.arrivalCheck(ARRIVAL_AIRPORT);
-        seatSelectPage.nameCheck(info.getFirstName());
+        seatSelectPage.departureCheck(flight.getDeparture());
+        seatSelectPage.arrivalCheck(flight.getArrival());
+        seatSelectPage.nameCheck(passenger.getFirstName());
         seatSelectPage.clickBookBtn();
+
+        FinalPage finalPage = new FinalPage(baseFunc);
+        finalPage.successfulMsgCheck(SUCCESSFUL_REG_MSG);
     }
 }

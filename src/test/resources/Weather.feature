@@ -100,4 +100,3 @@ Feature: Weather forecast
       | event       | SmallCraftAdvisory                                                      |
       | start       | 1646344800                                                              |
       | end         | 1646380800                                                              |
-

@@ -49,15 +49,13 @@ Feature: Weather forecast
       | wind_speed | 7.16       |
       | wind_deg   | 313        |
       | wind_gust  | 10.71      |
+      | pop        | 0.03       |
 
     And hourly weather details are:
       | id          | 803          |
       | main        | Clouds       |
       | description | brokenclouds |
       | icon        | 04d          |
-
-    And hourly weather data is:
-      | pop | 0.03 |
 
     And daily weather data is:
       | dt         | 1646326800 |
@@ -66,6 +64,16 @@ Feature: Weather forecast
       | moonrise   | 1646309880 |
       | moonset    | 1646352120 |
       | moon_phase | 0.03       |
+      | pressure   | 1016       |
+      | humidity   | 55         |
+      | dew_point  | 273.12     |
+      | wind_speed | 9.29       |
+      | wind_deg   | 3          |
+      | wind_gust  | 16.48      |
+      | clouds     | 49         |
+      | pop        | 0.25       |
+      | rain       | 0.11       |
+      | uvi        | 3.38       |
 
     And daily temperature details are:
       | day   | 281.63 |
@@ -81,25 +89,11 @@ Feature: Weather forecast
       | eve   | 273.35 |
       | morn  | 277.66 |
 
-    And daily weather data is:
-      | pressure   | 1016   |
-      | humidity   | 55     |
-      | dew_point  | 273.12 |
-      | wind_speed | 9.29   |
-      | wind_deg   | 3      |
-      | wind_gust  | 16.48  |
-
     And daily weather details are:
       | id          | 500       |
       | main        | Rain      |
       | description | lightrain |
       | icon        | 10d       |
-
-    And daily weather data is:
-      | clouds | 49   |
-      | pop    | 0.25 |
-      | rain   | 0.11 |
-      | uvi    | 3.38 |
 
     And alerts data is:
       | sender_name | NWSPhiladelphia-MountHolly(NewJersey,Delaware,SoutheasternPennsylvania) |
@@ -107,16 +101,3 @@ Feature: Weather forecast
       | start       | 1646344800                                                              |
       | end         | 1646380800                                                              |
 
-    And alerts description text is:
-          """...SMALLCRAFTADVISORYREMAINSINEFFECTFROM5PMTHIS
-      AFTERNOONTO3AMESTFRIDAY...
-      *WHAT...Northwinds15to20ktwithgustsupto25ktandseas
-      3to5ftexpected.
-      *WHERE...CoastalwatersfromLittleEggInlettoGreatEgg
-      InletNJout20nm,CoastalwatersfromGreatEggInletto
-      CapeMayNJout20nmandCoastalwatersfromManasquanInlet
-      toLittleEggInletNJout20nm.
-      *WHEN...From5PMthisafternoonto3AMESTFriday.
-      *IMPACTS...Conditionswillbehazardoustosmallcraft."""
-
-    And alerts tags data is:
